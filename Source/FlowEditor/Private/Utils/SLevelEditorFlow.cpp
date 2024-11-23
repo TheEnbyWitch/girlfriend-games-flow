@@ -48,8 +48,8 @@ void SLevelEditorFlow::CreateFlowWidget()
 				SNew(SObjectPropertyEntryBox)
 					.AllowedClass(UFlowGraphSettings::Get()->WorldAssetClass)
 					.DisplayThumbnail(false)
-					.OnObjectChanged(this, &SLevelEditorFlow::OnFlowChanged)
-					.ObjectPath(this, &SLevelEditorFlow::GetFlowAssetPath) // needs function to automatically refresh view upon data change
+					.OnObjectChanged_Raw(this, &SLevelEditorFlow::OnFlowChanged)
+					.ObjectPath_Raw(this, &SLevelEditorFlow::GetFlowAssetPath) // needs function to automatically refresh view upon data change
 			]
 	];
 }
