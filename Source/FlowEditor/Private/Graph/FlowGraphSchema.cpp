@@ -272,16 +272,22 @@ void UFlowGraphSchema::BreakPinLinks(UEdGraphPin& TargetPin, bool bSendsNodeNoti
 {
 	const FScopedTransaction Transaction(LOCTEXT("GraphEd_BreakPinLinks", "Break Pin Links"));
 
+
+	UEdGraphNode* EdGraphNode = TargetPin.GetOwningNode();
+	
 	Super::BreakPinLinks(TargetPin, bSendsNodeNotification);
 
-	if (TargetPin.bOrphanedPin)
+	if(EdGraphNode)
 	{
-		// this calls NotifyGraphChanged()
-		Cast<UFlowGraphNode>(TargetPin.GetOwningNode())->RemoveOrphanedPin(&TargetPin);
-	}
-	else if (bSendsNodeNotification)
-	{
-		TargetPin.GetOwningNode()->GetGraph()->NotifyGraphChanged();
+		if (TargetPin.bOrphanedPin)
+		{
+			// this calls NotifyGraphChanged()
+			Cast<UFlowGraphNode>(EdGraphNode)->RemoveOrphanedPin(&TargetPin);
+		}
+		else if (bSendsNodeNotification)
+		{
+			EdGraphNode->GetGraph()->NotifyGraphChanged();
+		}
 	}
 }
 
