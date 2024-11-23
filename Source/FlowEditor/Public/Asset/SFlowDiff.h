@@ -5,6 +5,7 @@
 #include "IDetailsView.h"
 #include "DiffResults.h"
 #include "SDetailsDiff.h"
+#include "Graph/FlowGraphConnectionDrawingPolicy.h"
 #include "Textures/SlateIcon.h"
 
 struct FFlowGraphToDiff;
